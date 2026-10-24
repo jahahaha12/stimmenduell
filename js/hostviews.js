@@ -202,7 +202,7 @@
         h('p', { class: 'rules-d' }, h('b', { text: 'Zufällig: ' }), 'Die Rollen werden bei jedem Spiel neu gemischt.', h('br'),
           h('b', { text: 'Nach Reihenfolge: ' }), 'Der Host spricht die größte Rolle, danach folgen die Spieler nach ihrem Beitritt.'));
 
-      const file = h('input', { type: 'file', multiple: true, accept: '.zip,.ini,.ogg,.ogv,.png,.mp4,.webm,audio/*,video/*', hidden: true, onchange: (e) => { this.importFiles(Array.from(e.target.files)); e.target.value = ''; } });
+      const file = h('input', { type: 'file', multiple: true, accept: '.zip,.ini,.txt,.ogg,.ogv,.png,.jpg,.jpeg,.mp4,.webm,audio/*,video/*,image/*', hidden: true, onchange: (e) => { this.importFiles(Array.from(e.target.files)); e.target.value = ''; } });
       const folder = h('input', { type: 'file', multiple: true, hidden: true, webkitdirectory: true, onchange: (e) => { this.importFiles(Array.from(e.target.files)); e.target.value = ''; } });
       const packs = h('section', { class: 'panel packs' },
         h('h2', { text: 'Dub-Packs' }),

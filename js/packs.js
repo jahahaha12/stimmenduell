@@ -4,7 +4,7 @@
      dub_video.ogv       das Video (stumm abzuspielen), auch mp4/webm
      _backing_track.ogg  Musik/Geräusche ohne Stimmen (optional)
      NN_name.ogg         Originalzeile (Sprache)
-     NN_name.ini         caption="…"  dub_timestamps=[3.829]  dub_characters=["Brian"]
+     NN_name.ini (oder .txt) caption="…"  dub_timestamps=[3.829]  dub_characters=["Brian"]
      NN_name.png         Standbild zur Zeile                                              */
 (function () {
   const VD = (window.VD = window.VD || {});
@@ -14,6 +14,7 @@
   const AUDIO_EXT = /\.(ogg|oga|opus|wav|mp3|m4a|aac|flac)$/i;
   const IMG_EXT = /\.(png|jpe?g|webp|gif)$/i;
   const VIDEO_RE = /^dub_video\.(ogv|mp4|m4v|webm)$/i;
+  const META_EXT = /\.(ini|txt)$/i;   // manche Packs speichern die Zeilen-Infos als .txt statt .ini
   const BACK_RE = /^_backing_track\.[a-z0-9]+$/i;
 
   const dirOf = (p) => { const i = p.lastIndexOf('/'); return i < 0 ? '' : p.slice(0, i); };
@@ -51,7 +52,7 @@
   async function buildPacks(rawEntries, fallbackName, onStatus) {
     const entries = rawEntries.map(normEntry).filter(Boolean);
     const videos = entries.filter((e) => VIDEO_RE.test(baseOf(e.path)));
-    const anyIni = entries.some((e) => /\.ini$/i.test(e.path) && !baseOf(e.path).startsWith('_'));
+    const anyIni = entries.some((e) => META_EXT.test(e.path) && !baseOf(e.path).startsWith('_'));
     if (!videos.length) {
       if (anyIni || entries.some((e) => AUDIO_EXT.test(e.path))) throw new Error('Das ist kein Dub-Pack: Die Datei „dub_video“ (ogv, mp4 oder webm) fehlt.');
       return [];
@@ -69,7 +70,7 @@
         const k = stem(b).toLowerCase();
         if (!byStem.has(k)) byStem.set(k, {});
         const g = byStem.get(k);
-        if (AUDIO_EXT.test(b)) g.audio = e; else if (/\.ini$/i.test(b)) g.ini = e; else if (IMG_EXT.test(b)) g.img = e;
+        if (AUDIO_EXT.test(b)) g.audio = e; else if (/\.ini$/i.test(b)) g.ini = e; else if (/\.txt$/i.test(b)) { if (!g.ini) g.ini = e; } else if (IMG_EXT.test(b)) g.img = e;
       }
       const keys = Array.from(byStem.keys()).sort(natural.compare);
       const pack = {
@@ -94,7 +95,7 @@
         });
         if (n % 6 === 0) await VD.sleep(0);
       }
-      if (!pack.lines.length) throw new Error('Im Pack gibt es keine Zeilen mit Zeitstempel (.ini mit dub_timestamps).');
+      if (!pack.lines.length) throw new Error('Im Pack gibt es keine Zeilen mit Zeitstempel (.ini oder .txt mit dub_timestamps).');
       pack.lines.sort((a, b) => a.ts - b.ts);
       pack.chars = Array.from(new Set(pack.lines.map((l) => l.char)));
       if (ve.size && ve.size > LIM.maxVideoBytes) throw new Error('Das Video ist größer als ' + Math.round(LIM.maxVideoBytes / 1048576) + ' MB.');
