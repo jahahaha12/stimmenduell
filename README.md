@@ -1,4 +1,4 @@
-Vibe Together
+Vibing Together
 
 A browser party game for dubbing movie scenes together, based on the principle of Choicer Voicer. It runs entirely in the browser, is free, and supports mixed PC and mobile play (crossplay).
 
@@ -23,7 +23,7 @@ A ZIP or folder containing _pack_info.ini, dub_video.ogv (or mp4/webm), and for 
 
 VIDEO NOTE
 
-Chrome and Edge no longer play Ogg/Theora (the pack format) natively. For this reason, Vibe Together automatically loads a bundled software decoder (ogv.js, public/vendor/ogv). The video always stays muted; the audio comes from the game. The duration of unknown videos is estimated from the lines. On weak phones, software decoding can stutter; in that case the game keeps showing the still image and the progress bar.
+Chrome and Edge no longer play Ogg/Theora (the pack format) natively. For this reason, Vibing Together automatically loads a bundled software decoder (ogv.js, public/vendor/ogv). The video always stays muted; the audio comes from the game. The duration of unknown videos is estimated from the lines. On weak phones, software decoding can stutter; in that case the game keeps showing the still image and the progress bar.
 
 RUNNING LOCALLY
 
@@ -40,7 +40,7 @@ Voice slightly out of sync: Bluetooth headphones on a phone add delay.
 
 LICENSES
 
-Vibe Together itself is licensed under the PolyForm Noncommercial License 1.0.0 (see LICENSE): using, modifying, and sharing is allowed for noncommercial purposes, meaning private use, with friends, for learning, or for hobby projects. Commercial use (selling, advertising or payment models, integration into a commercial product) is not allowed without the author’s permission. The license text and copyright notice must be retained in copies. The bundled libraries have their own licenses:
+Vibing Together itself is licensed under the PolyForm Noncommercial License 1.0.0 (see LICENSE): using, modifying, and sharing is allowed for noncommercial purposes, meaning private use, with friends, for learning, or for hobby projects. Commercial use (selling, advertising or payment models, integration into a commercial product) is not allowed without the author’s permission. The license text and copyright notice must be retained in copies. The bundled libraries have their own licenses:
 
 PeerJS (MIT), JSZip (MIT), qrcode-generator (MIT), ogv.js (MIT, licenses in public/vendor/ogv), mp4-muxer (MIT, public/vendor/mp4-muxer.LICENSE), RNNoise (BSD-3, see below). Pack contents belong to their creators; only use material you have the rights to. Independent fan project.
 
